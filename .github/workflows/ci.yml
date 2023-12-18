@@ -55,7 +55,7 @@ jobs:
       - name: Test Local Action
         uses: ./
         with:
-          version: '0.11.0'
+          version: '0.12.0'
 
       - name: Ensure humctl is installed
         run: humctl version

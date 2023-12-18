@@ -35,7 +35,11 @@ function getDownloadUrl(version: string): string {
 
   const extension = platform === 'windows' ? 'zip' : 'tar.gz'
 
-  return `https://storage.googleapis.com/humctl-releases/v${version}/cli_${version}_${platform}_${arch}.${extension}`
+  if (version === '0.11.0') {
+    return `https://storage.googleapis.com/humctl-releases/v${version}/cli_${version}_${platform}_${arch}.${extension}`
+  } else {
+    return `https://github.com/humanitec/cli/releases/download/v${version}/cli_${version}_${platform}_${arch}.${extension}`
+  }
 }
 
 /**
