@@ -28629,7 +28629,12 @@ function getDownloadUrl(version) {
     const platform = mapPlatform(os_1.default.platform());
     const arch = mapArch(os_1.default.arch());
     const extension = platform === 'windows' ? 'zip' : 'tar.gz';
-    return `https://storage.googleapis.com/humctl-releases/v${version}/cli_${version}_${platform}_${arch}.${extension}`;
+    if (version === '0.11.0') {
+        return `https://storage.googleapis.com/humctl-releases/v${version}/cli_${version}_${platform}_${arch}.${extension}`;
+    }
+    else {
+        return `https://github.com/humanitec/cli/releases/download/v${version}/cli_${version}_${platform}_${arch}.${extension}`;
+    }
 }
 /**
  * The main function for the action.
