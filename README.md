@@ -19,6 +19,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Humanitec CLI
         uses: humanitec/setup-cli-action@v1
+        with:
+          # Check https://github.com/humanitec/cli/releases for available versions
+          version: "0.17.0"
       - run: humctl version
 
 ```
