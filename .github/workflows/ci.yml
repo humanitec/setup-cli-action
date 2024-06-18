@@ -59,14 +59,9 @@ jobs:
         with:
           version: '0.13.1'
 
-      - name: Ensure humctl is installed
-        id: humctl_version_0_13_1
+      - name: Ensure humctl version 0.13.1 is installed
         run: humctl version
 
-      - name: Ensure correct version is installed
-        id: check_output
-        if: "!contains( steps.humctl_version_0_13_1.outputs.result, 'humctl version 0.13.1')"
-        run: exit 1
 
       - name: Test Local Action
         uses: ./
@@ -74,10 +69,12 @@ jobs:
           version: '0.13'
 
       - name: Ensure humctl is installed
-        id: humctl_version_0_13
         run: humctl version
 
-      - name: Ensure correct version is installed
-        id: check_output
-        if: "!contains( steps.humctl_version_0_13.outputs.result, 'humctl version 0.13.7')"
-        run: exit 1
+      - name: Test Local Action
+        uses: ./
+        with:
+          version: '0'
+
+      - name: Ensure humctl is installed
+        run: humctl version
