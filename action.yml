@@ -10,6 +10,9 @@ inputs:
   version:
     description: 'CLI version to install'
     required: true
+  token:
+    description: 'GitHub token (required if a version range is specified)'
+    required: false
 
 outputs: {}
 

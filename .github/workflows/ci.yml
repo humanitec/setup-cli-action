@@ -40,8 +40,6 @@ jobs:
 
   test-action:
     name: GitHub Actions Test
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     strategy:
       matrix:
@@ -54,7 +52,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Test Local Action
+      - name: Test Local Action (specific version)
         uses: ./
         with:
           version: '0.13.1'
@@ -62,19 +60,29 @@ jobs:
       - name: Ensure humctl version 0.13.1 is installed
         run: humctl version
 
-
-      - name: Test Local Action
+      - name: Test Local Action (latest minor)
         uses: ./
         with:
           version: '0.13'
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Ensure humctl is installed
         run: humctl version
 
-      - name: Test Local Action
+      - name: Test Local Action (latest major)
         uses: ./
         with:
           version: '0'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Ensure humctl is installed
+        run: humctl version
+
+      - name: Test Local Action (carot range)
+        uses: ./
+        with:
+          version: '^0'
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Ensure humctl is installed
         run: humctl version

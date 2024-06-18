@@ -2325,7 +2325,7 @@ class HttpClient {
         if (this._keepAlive && useProxy) {
             agent = this._proxyAgent;
         }
-        if (this._keepAlive && !useProxy) {
+        if (!useProxy) {
             agent = this._agent;
         }
         // if agent is already assigned use that agent.
@@ -2357,15 +2357,11 @@ class HttpClient {
             agent = tunnelAgent(agentOptions);
             this._proxyAgent = agent;
         }
-        // if reusing agent across request and tunneling agent isn't assigned create a new agent
-        if (this._keepAlive && !agent) {
+        // if tunneling agent isn't assigned create a new agent
+        if (!agent) {
             const options = { keepAlive: this._keepAlive, maxSockets };
             agent = usingSsl ? new https.Agent(options) : new http.Agent(options);
             this._agent = agent;
-        }
-        // if not using private agent and tunnel agent isn't setup then use global agent
-        if (!agent) {
-            agent = usingSsl ? https.globalAgent : http.globalAgent;
         }
         if (usingSsl && this._ignoreSslError) {
             // we don't want to set NODE_TLS_REJECT_UNAUTHORIZED=0 since that will affect request for entire process
@@ -5696,58 +5692,7 @@ module.exports = v4;
 
 /***/ }),
 
-/***/ 5375:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-"use strict";
-
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// pkg/dist-src/index.js
-var dist_src_exports = {};
-__export(dist_src_exports, {
-  Octokit: () => Octokit
-});
-module.exports = __toCommonJS(dist_src_exports);
-var import_core = __nccwpck_require__(4952);
-var import_plugin_request_log = __nccwpck_require__(748);
-var import_plugin_paginate_rest = __nccwpck_require__(606);
-var import_plugin_rest_endpoint_methods = __nccwpck_require__(4923);
-
-// pkg/dist-src/version.js
-var VERSION = "20.1.1";
-
-// pkg/dist-src/index.js
-var Octokit = import_core.Octokit.plugin(
-  import_plugin_request_log.requestLog,
-  import_plugin_rest_endpoint_methods.legacyRestEndpointMethods,
-  import_plugin_paginate_rest.paginateRest
-).defaults({
-  userAgent: `octokit-rest.js/${VERSION}`
-});
-// Annotate the CommonJS export names for ESM import in node:
-0 && (0);
-
-
-/***/ }),
-
-/***/ 7633:
+/***/ 334:
 /***/ ((module) => {
 
 "use strict";
@@ -5832,7 +5777,7 @@ var createTokenAuth = function createTokenAuth2(token) {
 
 /***/ }),
 
-/***/ 4952:
+/***/ 6762:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -5861,11 +5806,11 @@ __export(dist_src_exports, {
   Octokit: () => Octokit
 });
 module.exports = __toCommonJS(dist_src_exports);
-var import_universal_user_agent = __nccwpck_require__(3318);
-var import_before_after_hook = __nccwpck_require__(2258);
-var import_request = __nccwpck_require__(4047);
-var import_graphql = __nccwpck_require__(7461);
-var import_auth_token = __nccwpck_require__(7633);
+var import_universal_user_agent = __nccwpck_require__(5030);
+var import_before_after_hook = __nccwpck_require__(3682);
+var import_request = __nccwpck_require__(6234);
+var import_graphql = __nccwpck_require__(8467);
+var import_auth_token = __nccwpck_require__(334);
 
 // pkg/dist-src/version.js
 var VERSION = "5.2.0";
@@ -6001,7 +5946,7 @@ var Octokit = class {
 
 /***/ }),
 
-/***/ 6065:
+/***/ 9440:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -6032,7 +5977,7 @@ __export(dist_src_exports, {
 module.exports = __toCommonJS(dist_src_exports);
 
 // pkg/dist-src/defaults.js
-var import_universal_user_agent = __nccwpck_require__(3318);
+var import_universal_user_agent = __nccwpck_require__(5030);
 
 // pkg/dist-src/version.js
 var VERSION = "9.0.5";
@@ -6385,7 +6330,7 @@ var endpoint = withDefaults(null, DEFAULTS);
 
 /***/ }),
 
-/***/ 7461:
+/***/ 8467:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -6416,17 +6361,17 @@ __export(dist_src_exports, {
   withCustomRequest: () => withCustomRequest
 });
 module.exports = __toCommonJS(dist_src_exports);
-var import_request3 = __nccwpck_require__(4047);
-var import_universal_user_agent = __nccwpck_require__(3318);
+var import_request3 = __nccwpck_require__(6234);
+var import_universal_user_agent = __nccwpck_require__(5030);
 
 // pkg/dist-src/version.js
 var VERSION = "7.1.0";
 
 // pkg/dist-src/with-defaults.js
-var import_request2 = __nccwpck_require__(4047);
+var import_request2 = __nccwpck_require__(6234);
 
 // pkg/dist-src/graphql.js
-var import_request = __nccwpck_require__(4047);
+var import_request = __nccwpck_require__(6234);
 
 // pkg/dist-src/error.js
 function _buildMessageForResponseErrors(data) {
@@ -6543,7 +6488,7 @@ function withCustomRequest(customRequest) {
 
 /***/ }),
 
-/***/ 606:
+/***/ 4193:
 /***/ ((module) => {
 
 "use strict";
@@ -6947,7 +6892,7 @@ paginateRest.VERSION = VERSION;
 
 /***/ }),
 
-/***/ 748:
+/***/ 8883:
 /***/ ((module) => {
 
 "use strict";
@@ -7007,7 +6952,7 @@ requestLog.VERSION = VERSION;
 
 /***/ }),
 
-/***/ 4923:
+/***/ 3044:
 /***/ ((module) => {
 
 "use strict";
@@ -9127,7 +9072,7 @@ legacyRestEndpointMethods.VERSION = VERSION;
 
 /***/ }),
 
-/***/ 6239:
+/***/ 537:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -9225,7 +9170,7 @@ var RequestError = class extends Error {
 
 /***/ }),
 
-/***/ 4047:
+/***/ 6234:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -9254,8 +9199,8 @@ __export(dist_src_exports, {
   request: () => request
 });
 module.exports = __toCommonJS(dist_src_exports);
-var import_endpoint = __nccwpck_require__(6065);
-var import_universal_user_agent = __nccwpck_require__(3318);
+var import_endpoint = __nccwpck_require__(9440);
+var import_universal_user_agent = __nccwpck_require__(5030);
 
 // pkg/dist-src/version.js
 var VERSION = "8.4.0";
@@ -9274,7 +9219,7 @@ function isPlainObject(value) {
 }
 
 // pkg/dist-src/fetch-wrapper.js
-var import_request_error = __nccwpck_require__(6239);
+var import_request_error = __nccwpck_require__(537);
 
 // pkg/dist-src/get-buffer-response.js
 function getBufferResponse(response) {
@@ -9455,12 +9400,63 @@ var request = withDefaults(import_endpoint.endpoint, {
 
 /***/ }),
 
-/***/ 2258:
+/***/ 5375:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-var register = __nccwpck_require__(948);
-var addHook = __nccwpck_require__(6917);
-var removeHook = __nccwpck_require__(7691);
+"use strict";
+
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// pkg/dist-src/index.js
+var dist_src_exports = {};
+__export(dist_src_exports, {
+  Octokit: () => Octokit
+});
+module.exports = __toCommonJS(dist_src_exports);
+var import_core = __nccwpck_require__(6762);
+var import_plugin_request_log = __nccwpck_require__(8883);
+var import_plugin_paginate_rest = __nccwpck_require__(4193);
+var import_plugin_rest_endpoint_methods = __nccwpck_require__(3044);
+
+// pkg/dist-src/version.js
+var VERSION = "20.1.1";
+
+// pkg/dist-src/index.js
+var Octokit = import_core.Octokit.plugin(
+  import_plugin_request_log.requestLog,
+  import_plugin_rest_endpoint_methods.legacyRestEndpointMethods,
+  import_plugin_paginate_rest.paginateRest
+).defaults({
+  userAgent: `octokit-rest.js/${VERSION}`
+});
+// Annotate the CommonJS export names for ESM import in node:
+0 && (0);
+
+
+/***/ }),
+
+/***/ 3682:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+var register = __nccwpck_require__(4670);
+var addHook = __nccwpck_require__(5549);
+var removeHook = __nccwpck_require__(6819);
 
 // bind with array of arguments: https://stackoverflow.com/a/21792913
 var bind = Function.bind;
@@ -9523,7 +9519,7 @@ module.exports.Collection = Hook.Collection;
 
 /***/ }),
 
-/***/ 6917:
+/***/ 5549:
 /***/ ((module) => {
 
 module.exports = addHook;
@@ -9576,7 +9572,7 @@ function addHook(state, kind, name, hook) {
 
 /***/ }),
 
-/***/ 948:
+/***/ 4670:
 /***/ ((module) => {
 
 module.exports = register;
@@ -9610,7 +9606,7 @@ function register(state, name, method, options) {
 
 /***/ }),
 
-/***/ 7691:
+/***/ 6819:
 /***/ ((module) => {
 
 module.exports = removeHook;
@@ -9632,32 +9628,6 @@ function removeHook(state, name, method) {
 
   state.registry[name].splice(index, 1);
 }
-
-
-/***/ }),
-
-/***/ 3318:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-
-function getUserAgent() {
-  if (typeof navigator === "object" && "userAgent" in navigator) {
-    return navigator.userAgent;
-  }
-
-  if (typeof process === "object" && process.version !== undefined) {
-    return `Node.js/${process.version.substr(1)} (${process.platform}; ${process.arch})`;
-  }
-
-  return "<environment undetectable>";
-}
-
-exports.getUserAgent = getUserAgent;
-//# sourceMappingURL=index.js.map
 
 
 /***/ }),
@@ -34714,6 +34684,32 @@ module.exports = {
 
 /***/ }),
 
+/***/ 5030:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+function getUserAgent() {
+  if (typeof navigator === "object" && "userAgent" in navigator) {
+    return navigator.userAgent;
+  }
+
+  if (typeof process === "object" && process.version !== undefined) {
+    return `Node.js/${process.version.substr(1)} (${process.platform}; ${process.arch})`;
+  }
+
+  return "<environment undetectable>";
+}
+
+exports.getUserAgent = getUserAgent;
+//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
 /***/ 5840:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
@@ -35438,7 +35434,7 @@ const core = __importStar(__nccwpck_require__(2186));
 const tc = __importStar(__nccwpck_require__(7784));
 const rest_1 = __nccwpck_require__(5375);
 const semver = __importStar(__nccwpck_require__(1383));
-const process = __importStar(__nccwpck_require__(7742));
+const semver_1 = __nccwpck_require__(8593);
 // arch in [arm, x32, x64...] (https://nodejs.org/api/os.html#os_os_arch)
 // return value in [amd64, 386, arm]
 function mapArch(arch) {
@@ -35464,39 +35460,53 @@ function mapPlatform(platform) {
             return platform;
     }
 }
-async function getDownloadUrl(version, token) {
+async function getDownloadUrl(version) {
     const platform = mapPlatform(os_1.default.platform());
     const arch = mapArch(os_1.default.arch());
     const extension = platform === 'windows' ? 'zip' : 'tar.gz';
+    const path = `v${version}/cli_${version}_${platform}_${arch}.${extension}`;
     if (version === '0.11.0') {
-        return `https://storage.googleapis.com/humctl-releases/v${version}/cli_${version}_${platform}_${arch}.${extension}`;
+        return `https://storage.googleapis.com/humctl-releases/${path}`;
     }
-    const oktokit = new rest_1.Octokit({ auth: token });
-    const response = await oktokit.rest.repos.listReleases({
-        owner: 'humanitec',
-        repo: 'cli'
-    });
-    const releases = response.data;
-    // Get all tags as an array
-    const tags = releases.map(release => {
-        const semverVersion = semver.parse(release.tag_name);
-        if (semverVersion === null) {
-            throw new Error(`Failed to parse version from tag: ${release.tag_name}`);
+    return `https://github.com/humanitec/cli/releases/download/${path}`;
+}
+async function findMatchingRelease(range, octokit) {
+    const perPage = 100;
+    let page = 0;
+    let lastPage = false;
+    while (!lastPage) {
+        const response = await octokit.rest.repos.listReleases({
+            owner: 'humanitec',
+            repo: 'cli',
+            per_page: perPage,
+            page
+        });
+        const releases = response.data;
+        for (const release of releases) {
+            if (range.test(release.tag_name)) {
+                return release.tag_name;
+            }
         }
-        return semverVersion.version;
-    });
-    let downloadVersion = null;
-    if (version !== 'latest') {
-        // Get the maximum version that satisfies the condition
-        downloadVersion = semver.maxSatisfying(tags, version);
-        if (downloadVersion == null) {
-            throw new Error('Requested version not found in releases');
+        if (releases.length < perPage) {
+            lastPage = true;
+        }
+        else {
+            page++;
         }
     }
-    else {
-        downloadVersion = tags[0];
+    throw new Error('No matching release found');
+}
+// Determine the version to download based on the input
+async function determineVersion(version, token) {
+    const range = new semver.Range(version);
+    if (!semver.validRange(range)) {
+        throw new Error(`Input is an invalid semver range: ${version}`);
     }
-    return `https://github.com/humanitec/cli/releases/download/v${downloadVersion}/cli_${downloadVersion}_${platform}_${arch}.${extension}`;
+    if ((0, semver_1.isSpecificRange)(version)) {
+        return version;
+    }
+    const octokit = new rest_1.Octokit({ auth: token });
+    return findMatchingRelease(range, octokit);
 }
 /**
  * The main function for the action.
@@ -35504,9 +35514,12 @@ async function getDownloadUrl(version, token) {
  */
 async function run() {
     try {
-        const version = core.getInput('version');
-        const token = process.env['GITHUB_TOKEN'] ?? '';
-        const url = await getDownloadUrl(version, token);
+        const versionRange = core.getInput('version', { required: true });
+        const token = core.getInput('token');
+        const versionWithPrefix = await determineVersion(versionRange, token);
+        const version = versionWithPrefix.replace(/^v/, '');
+        core.info(`Matched version: ${version}`);
+        const url = await getDownloadUrl(version);
         core.info(`Downloading: ${url}`);
         const pathToTarball = await tc.downloadTool(url);
         const extract = url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
@@ -35521,6 +35534,32 @@ async function run() {
     }
 }
 exports.run = run;
+
+
+/***/ }),
+
+/***/ 8593:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.isSpecificRange = void 0;
+const semver_1 = __importDefault(__nccwpck_require__(1383));
+const isSpecificRange = (range) => {
+    const rangeObj = new semver_1.default.Range(range);
+    // Any with more than one comparator is not a specific range
+    if (rangeObj.set.length !== 1 || rangeObj.set[0].length !== 1) {
+        return false;
+    }
+    // The comparator must be an exact version
+    const comparator = rangeObj.set[0][0];
+    return comparator.operator === '' && comparator.value !== '';
+};
+exports.isSpecificRange = isSpecificRange;
 
 
 /***/ }),
@@ -35634,14 +35673,6 @@ module.exports = require("net");
 
 "use strict";
 module.exports = require("node:events");
-
-/***/ }),
-
-/***/ 7742:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("node:process");
 
 /***/ }),
 
@@ -35857,7 +35888,7 @@ Dicer.prototype._write = function (data, encoding, cb) {
   if (this._headerFirst && this._isPreamble) {
     if (!this._part) {
       this._part = new PartStream(this._partOpts)
-      if (this._events.preamble) { this.emit('preamble', this._part) } else { this._ignore() }
+      if (this.listenerCount('preamble') !== 0) { this.emit('preamble', this._part) } else { this._ignore() }
     }
     const r = this._hparser.push(data)
     if (!this._inHeader && r !== undefined && r < data.length) { data = data.slice(r) } else { return cb() }
@@ -35914,7 +35945,7 @@ Dicer.prototype._oninfo = function (isMatch, data, start, end) {
       }
     }
     if (this._dashes === 2) {
-      if ((start + i) < end && this._events.trailer) { this.emit('trailer', data.slice(start + i, end)) }
+      if ((start + i) < end && this.listenerCount('trailer') !== 0) { this.emit('trailer', data.slice(start + i, end)) }
       this.reset()
       this._finished = true
       // no more parts will be added
@@ -35932,7 +35963,13 @@ Dicer.prototype._oninfo = function (isMatch, data, start, end) {
     this._part._read = function (n) {
       self._unpause()
     }
-    if (this._isPreamble && this._events.preamble) { this.emit('preamble', this._part) } else if (this._isPreamble !== true && this._events.part) { this.emit('part', this._part) } else { this._ignore() }
+    if (this._isPreamble && this.listenerCount('preamble') !== 0) {
+      this.emit('preamble', this._part)
+    } else if (this._isPreamble !== true && this.listenerCount('part') !== 0) {
+      this.emit('part', this._part)
+    } else {
+      this._ignore()
+    }
     if (!this._isPreamble) { this._inHeader = true }
   }
   if (data && start < end && !this._ignoreData) {
@@ -36615,7 +36652,7 @@ function Multipart (boy, cfg) {
 
         ++nfiles
 
-        if (!boy._events.file) {
+        if (boy.listenerCount('file') === 0) {
           self.parser._ignore()
           return
         }
@@ -37144,7 +37181,7 @@ const decoders = {
     if (textDecoders.has(this.toString())) {
       try {
         return textDecoders.get(this).decode(data)
-      } catch (e) { }
+      } catch {}
     }
     return typeof data === 'string'
       ? data
