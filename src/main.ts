@@ -1,6 +1,9 @@
 import os from 'os'
 import * as core from '@actions/core'
 import * as tc from '@actions/tool-cache'
+import { Octokit } from '@octokit/rest'
+import * as semver from 'semver'
+import { isSpecificRange } from './semver'
 
 // arch in [arm, x32, x64...] (https://nodejs.org/api/os.html#os_os_arch)
 // return value in [amd64, 386, arm]
@@ -29,17 +32,70 @@ function mapPlatform(platform: string): string {
   }
 }
 
-function getDownloadUrl(version: string): string {
+async function getDownloadUrl(version: string): Promise<string> {
   const platform = mapPlatform(os.platform())
   const arch = mapArch(os.arch())
-
   const extension = platform === 'windows' ? 'zip' : 'tar.gz'
 
+  const path = `v${version}/cli_${version}_${platform}_${arch}.${extension}`
+
   if (version === '0.11.0') {
-    return `https://storage.googleapis.com/humctl-releases/v${version}/cli_${version}_${platform}_${arch}.${extension}`
-  } else {
-    return `https://github.com/humanitec/cli/releases/download/v${version}/cli_${version}_${platform}_${arch}.${extension}`
+    return `https://storage.googleapis.com/humctl-releases/${path}`
   }
+  return `https://github.com/humanitec/cli/releases/download/${path}`
+}
+
+async function findMatchingRelease(
+  range: semver.Range,
+  octokit: InstanceType<typeof Octokit>
+): Promise<string> {
+  const perPage = 100
+  let page = 0
+
+  let lastPage = false
+  while (!lastPage) {
+    const response = await octokit.rest.repos.listReleases({
+      owner: 'humanitec',
+      repo: 'cli',
+      per_page: perPage,
+      page
+    })
+
+    const releases = response.data
+
+    for (const release of releases) {
+      if (range.test(release.tag_name)) {
+        return release.tag_name
+      }
+    }
+
+    if (releases.length < perPage) {
+      lastPage = true
+    } else {
+      page++
+    }
+  }
+
+  throw new Error('No matching release found')
+}
+
+// Determine the version to download based on the input
+async function determineVersion(
+  version: string,
+  token?: string
+): Promise<string> {
+  const range = new semver.Range(version)
+  if (!semver.validRange(range)) {
+    throw new Error(`Input is an invalid semver range: ${version}`)
+  }
+
+  if (isSpecificRange(version)) {
+    return version
+  }
+
+  const octokit = new Octokit({ auth: token })
+
+  return findMatchingRelease(range, octokit)
 }
 
 /**
@@ -48,8 +104,15 @@ function getDownloadUrl(version: string): string {
  */
 export async function run(): Promise<void> {
   try {
-    const version = core.getInput('version')
-    const url = getDownloadUrl(version)
+    const versionRange = core.getInput('version', { required: true })
+    const token = core.getInput('token')
+
+    const versionWithPrefix = await determineVersion(versionRange, token)
+    const version = versionWithPrefix.replace(/^v/, '')
+
+    core.info(`Matched version: ${version}`)
+
+    const url = await getDownloadUrl(version)
 
     core.info(`Downloading: ${url}`)
     const pathToTarball = await tc.downloadTool(url)
