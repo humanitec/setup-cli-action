@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "author": "",
   "private": true,
+  "type": "module",
   "description": "GitHub Action to set up the Humanitec CLI",
   "homepage": "https://github.com/humanitec/setup-cli-action",
   "repository": {
