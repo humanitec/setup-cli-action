@@ -26,7 +26,7 @@
     "format:write": "prettier --write **/*.ts",
     "format:check": "prettier --check **/*.ts",
     "lint": "npx eslint . -c .eslintrc.yml",
-    "package": "ncc build src/index.ts",
+    "package": "ncc build src/index.mts",
     "test": "jest"
   },
   "jest": {
