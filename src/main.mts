@@ -3,7 +3,7 @@ import * as core from '@actions/core'
 import * as tc from '@actions/tool-cache'
 import { Octokit } from '@octokit/rest'
 import * as semver from 'semver'
-import { isSpecificRange } from './semver'
+import { isSpecificRange } from './semver.js'
 
 // arch in [arm, x32, x64...] (https://nodejs.org/api/os.html#os_os_arch)
 // return value in [amd64, 386, arm]
