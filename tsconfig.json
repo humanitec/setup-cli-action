@@ -2,9 +2,9 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "target": "ES2022",
-    "module": "node16",
+    "module": "ESNext",
     "rootDir": "./src",
-    "moduleResolution": "node16",
+    "moduleResolution": "node",
     "baseUrl": "./",
     "sourceMap": true,
     "outDir": "./dist",
