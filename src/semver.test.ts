@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals'
 
-import { isSpecificRange } from './semver'
+import { isSpecificRange } from './semver.js'
 
 describe('semver', () => {
   for (const version of ['1.0.0', '0.11.0', '0.0.1']) {
