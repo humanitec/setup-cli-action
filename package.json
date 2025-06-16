@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "author": "",
   "private": true,
-  "type": "module",
   "description": "GitHub Action to set up the Humanitec CLI",
   "homepage": "https://github.com/humanitec/setup-cli-action",
   "repository": {
@@ -52,7 +51,7 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/tool-cache": "^2.0.1",
-    "@octokit/rest": "^22.0.0",
+    "@octokit/rest": "^20.1.1",
     "semver": "^7.6.2"
   },
   "devDependencies": {
