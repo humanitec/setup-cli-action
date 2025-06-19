@@ -24,7 +24,7 @@
     "bundle": "npm run format:write && npm run package",
     "format:write": "prettier --write **/*.ts",
     "format:check": "prettier --check **/*.ts",
-    "lint": "npx eslint . -c .eslintrc.yml",
+    "lint": "npx eslint",
     "package": "ncc build src/index.ts",
     "test": "jest"
   },
@@ -55,20 +55,21 @@
     "semver": "^7.6.2"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.10.6",
-    "@typescript-eslint/eslint-plugin": "^6.13.2",
-    "@typescript-eslint/parser": "^6.13.2",
-    "@vercel/ncc": "^0.38.1",
-    "eslint": "^8.55.0",
-    "eslint-plugin-github": "^5.1.5",
-    "eslint-plugin-jest": "^27.6.0",
-    "eslint-plugin-jsonc": "^2.18.2",
-    "eslint-plugin-prettier": "^5.2.3",
-    "jest": "^29.7.0",
-    "prettier": "^3.4.2",
-    "prettier-eslint": "^16.1.2",
-    "ts-jest": "^29.2.5",
+    "@types/semver": "^7.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "@vercel/ncc": "^0.38.3",
+    "eslint": "^9.10.0",
+    "eslint-plugin-github": "^5.1.8",
+    "eslint-plugin-jest": "^28.13.5",
+    "eslint-plugin-jsonc": "^2.20.1",
+    "eslint-plugin-prettier": "^5.4.1",
+    "jest": "^30.0.0",
+    "prettier": "^3.5.3",
+    "prettier-eslint": "^16.4.2",
+    "ts-jest": "^29.4.0",
     "typescript": "^5.7.3"
   }
 }
