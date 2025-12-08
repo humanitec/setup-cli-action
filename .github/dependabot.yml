@@ -14,3 +14,10 @@ updates:
     commit-message:
       prefix: "build"
       include: "scope"
+    groups:
+      types:
+        patterns:
+          - '@types/*'
+      typescript-eslint:
+        patterns:
+          - '@typescript-eslint/*'
