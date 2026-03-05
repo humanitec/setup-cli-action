@@ -27,6 +27,7 @@ export default defineConfig([globalIgnores([
     "**/dist/",
     "**/node_modules/",
     "**/eslint.config.mjs",
+    "**/__tests__/jest-resolver.js",
 ]), {
     extends: compat.extends(
         "eslint:recommended",
