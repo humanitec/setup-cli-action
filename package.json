@@ -45,8 +45,13 @@
       "/dist/"
     ],
     "transform": {
-      "^.+\\.ts$": "ts-jest"
-    }
+      "^.+\\.ts$": "ts-jest",
+      "node_modules/@actions/.+\\.js$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!@actions/)"
+    ],
+    "resolver": "./__tests__/jest-resolver.js"
   },
   "dependencies": {
     "@actions/core": "^3.0.0",
