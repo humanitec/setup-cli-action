@@ -25,7 +25,7 @@
     "format:write": "prettier --write **/*.ts",
     "format:check": "prettier --check **/*.ts",
     "lint": "npx eslint",
-    "package": "ncc build src/index.ts",
+    "package": "esbuild src/index.ts --bundle --platform=node --target=node20 --outfile=dist/index.js",
     "test": "jest"
   },
   "jest": {
@@ -65,7 +65,7 @@
     "@types/semver": "^7.7.1",
     "@typescript-eslint/eslint-plugin": "^8.53.0",
     "@typescript-eslint/parser": "^8.50.1",
-    "@vercel/ncc": "^0.38.4",
+    "esbuild": "^0.27.3",
     "eslint": "^9.39.2",
     "eslint-plugin-github": "^6.0.0",
     "eslint-plugin-jest": "^29.10.1",
