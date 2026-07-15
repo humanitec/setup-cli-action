@@ -1,8 +1,8 @@
-# setup-cli-action
+# 🛠️ setup-cli-action
 
 GitHub Action to set up the [Humanitec CLI](https://developer.humanitec.com/platform-orchestrator/cli/).
 
-## Usage
+## 🚀 Usage
 
 ```yaml
 name: ci
@@ -30,7 +30,7 @@ jobs:
 - Checkout the [Documentation](https://developer.humanitec.com/platform-orchestrator/cli/) on how to install the CLI.
 - Checkout the [CLI Reference](https://developer.humanitec.com/platform-orchestrator/reference/cli-references/) for additional usage details.
 
-## Development
+## 🧑‍💻 Collaboration
 
 **Requirements:**
 
@@ -49,8 +49,13 @@ npm ci
 npm test              # run jest tests
 npm run lint          # eslint
 npm run format:write  # prettier write
-npm run bundle        # format + build dist/index.js (esbuild)
 ```
 
-> `dist/` is committed. Run `npm run bundle` and commit `dist/` before pushing —
-> the `check-dist` workflow fails if `dist/` is stale.
+**Bundle:**
+
+`dist/` is committed. Run `npm run bundle` and commit `dist/` before pushing - the `check-dist` workflow fails if `dist/` is stale.
+
+```bash
+# format + build dist/index.js (esbuild)
+npm run bundle
+```
