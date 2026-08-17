@@ -54,7 +54,7 @@
     "resolver": "./__tests__/jest-resolver.js"
   },
   "dependencies": {
-    "@actions/core": "^3.0.0",
+    "@actions/core": "^3.0.1",
     "@actions/tool-cache": "^4.0.0",
     "@octokit/rest": "^20.1.1",
     "semver": "^7.7.4"
