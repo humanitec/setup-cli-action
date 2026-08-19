@@ -59,3 +59,12 @@ npm run format:write  # prettier write
 # format + build dist/index.js (esbuild)
 npm run bundle
 ```
+
+**Release:**
+
+Tag `main` with a version and push - the `release` workflow publishes a GitHub release and moves the major tag (e.g. `v1`).
+
+```bash
+git tag v1.2.4
+git push origin v1.2.4
+```
